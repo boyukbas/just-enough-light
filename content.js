@@ -22,8 +22,9 @@ function enableMask() {
 
     document.addEventListener('mousemove', handleMouseMove);
 
-    chrome.storage.sync.get({ maskStrength: 0.8 }, (data) => {
+    chrome.storage.sync.get({ maskStrength: 0.8, maskRadius: 300 }, (data) => {
       mask.style.setProperty('--mask-opacity', data.maskStrength);
+      mask.style.setProperty('--mask-radius', `${data.maskRadius}px`);
     });
   }
 }

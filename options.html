@@ -33,7 +33,7 @@
     label {
       display: block;
       font-weight: bold;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       color: #e0e0e0;
     }
     input {
@@ -70,6 +70,8 @@
     <h1>Just Enough Light</h1>
     <label for="mask-strength">Mask Strength (0.0 - 1.0):</label>
     <input type="number" id="mask-strength" min="0" max="1" step="0.1">
+    <label for="mask-radius">Mask Radius (in pixels):</label>
+    <input type="number" id="mask-radius" min="100" max="1000" step="10">
     <button id="save-button">Save</button>
   </div>
   <script src="options.js"></script>
