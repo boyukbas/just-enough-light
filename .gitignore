@@ -1,0 +1,3 @@
+# Ignore Chrome Extension package files
+*.crx
+*.pem
