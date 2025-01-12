@@ -1,19 +1,46 @@
-// Load the mask strength from storage
-chrome.storage.sync.get({ maskStrength: 0.8 }, (data) => {
-    const maskStrength = data.maskStrength;
-  
-    // Create the mask
+// Add a listener for messages from the background script
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'enable') {
+    enableMask();
+  } else if (message.action === 'disable') {
+    disableMask();
+  }
+});
+
+// Enable the mask by default on page load
+chrome.storage.sync.get({ enabled: true }, (data) => {
+  if (data.enabled) {
+    enableMask();
+  }
+});
+
+function enableMask() {
+  if (!document.getElementById('cursor-mask')) {
     const mask = document.createElement('div');
     mask.id = 'cursor-mask';
     document.body.appendChild(mask);
-  
-    // Update mask position on mouse move
-    document.addEventListener('mousemove', (event) => {
-      const { clientX, clientY } = event;
-      mask.style.setProperty('--cursor-x', `${clientX}px`);
-      mask.style.setProperty('--cursor-y', `${clientY}px`);
+
+    document.addEventListener('mousemove', handleMouseMove);
+
+    chrome.storage.sync.get({ maskStrength: 0.8 }, (data) => {
+      mask.style.setProperty('--mask-opacity', data.maskStrength);
     });
-  
-    // Update mask CSS with the configured strength
-    mask.style.setProperty('--mask-opacity', maskStrength);
-  });
+  }
+}
+
+function disableMask() {
+  const mask = document.getElementById('cursor-mask');
+  if (mask) {
+    mask.remove();
+    document.removeEventListener('mousemove', handleMouseMove);
+  }
+}
+
+function handleMouseMove(event) {
+  const mask = document.getElementById('cursor-mask');
+  if (mask) {
+    const { clientX, clientY } = event;
+    mask.style.setProperty('--cursor-x', `${clientX}px`);
+    mask.style.setProperty('--cursor-y', `${clientY}px`);
+  }
+}
