@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Just enough light",
   "version": "1.1",
-  "description": "Adds a mask overlay to all websites with a visible area around the cursor. Tailored for users with light sensitivity. Functions as a dark reader, adapting to every webpage, including those that are already dark, and will feature a torch mode for focused illumination.",
+  "description": "Customizable mask overlay for websites, helping users focus or reduce glare. Adjust strength and radius for tailored use. Dark mode.",
   "permissions": [
     "storage"
   ],
